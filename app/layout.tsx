@@ -32,7 +32,7 @@ const businessJsonLd = {
   },
   areaServed: "Columbia, Missouri and surrounding areas",
   priceRange: "$1,800 - $3,600",
-  sameAs: ["https://www.instagram.com/primus_events/"],
+  sameAs: ["https://www.instagram.com/primus_inspirations/"],
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],

@@ -61,7 +61,7 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
         </p>
         <a
           className="button button-dark"
-          href="https://www.instagram.com/primus_events/"
+          href="https://www.instagram.com/primus_inspirations/"
           target="_blank"
           rel="noreferrer"
         >

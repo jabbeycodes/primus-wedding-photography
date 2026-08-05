@@ -21,7 +21,7 @@ export default function StickyCTA() {
         <span>Ready to book?</span>
         <strong>Check your date →</strong>
       </a>
-      <a className="sticky-cta-sms" href="sms:+133****2361">
+      <a className="sticky-cta-sms" href="sms:+13364572361">
         Text us
       </a>
     </div>

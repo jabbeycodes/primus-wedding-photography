@@ -373,19 +373,19 @@ export default function Home() {
           <ContactForm />
           <div className="contact-alt">
             <p>Prefer to talk now?</p>
-            <a className="contact-card" href="sms:+133****2361">
+            <a className="contact-card" href="sms:+13364572361">
               <span>Text or call</span>
               <strong>(336) 457-2361</strong>
               <em>Start an inquiry ↗</em>
             </a>
             <a
               className="contact-card"
-              href="https://www.instagram.com/primus_events/"
+              href="https://www.instagram.com/primus_inspirations/"
               target="_blank"
               rel="noreferrer"
             >
               <span>Instagram</span>
-              <strong>@primus_events</strong>
+              <strong>@primus_inspirations</strong>
               <em>See recent work ↗</em>
             </a>
           </div>
