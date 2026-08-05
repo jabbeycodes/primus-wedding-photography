@@ -1,28 +1,42 @@
 import type { Metadata } from "next";
+import ContactForm from "./components/ContactForm";
+import Gallery from "./components/Gallery";
+import Testimonials from "./components/Testimonials";
+import FAQ from "./components/FAQ";
+import AvailabilityChecker from "./components/AvailabilityChecker";
+import NewsletterCapture from "./components/NewsletterCapture";
+import StickyCTA from "./components/StickyCTA";
 
 export const metadata: Metadata = {
   title: "Columbia, Missouri Wedding Photographer | Primus Photography",
   description:
-    "Wedding photography in Columbia, Missouri, with engagement sessions, full-day coverage, portraits, albums, videography, drone coverage, and photo booth options.",
+    "Wedding photography in Columbia, Missouri, with engagement sessions, full-day coverage, portraits, albums, videography, drone coverage, and photo booth options. Check your date today.",
 };
 
-const gallery = [
-  ["03", "A newlywed couple beneath the trees"],
-  ["04", "A quiet getting-ready moment by the window"],
-  ["06", "A bride preparing for her ceremony"],
-  ["07", "A couple celebrating in traditional wedding attire"],
-  ["08", "Newlyweds sharing a joyful moment"],
-  ["09", "A candid black-and-white wedding portrait"],
-  ["10", "A father and child on the dance floor"],
-  ["14", "A bride holding a vivid red bouquet"],
-  ["15", "A newlywed portrait after the ceremony"],
-  ["17", "A young wedding attendant arriving for the celebration"],
-  ["18", "A bride with a soft pink bouquet"],
-  ["19", "A couple celebrating together"],
-  ["20", "A joyful black-and-white bridal portrait"],
-  ["21", "A bride holding her bouquet"],
-  ["22", "A guest capturing a wedding-day portrait"],
-] as const;
+const galleryImages = [
+  { src: "/images/weddings/wedding-03.jpg", alt: "A newlywed couple beneath the trees", tall: true },
+  { src: "/images/weddings/wedding-04.jpg", alt: "A quiet getting-ready moment by the window" },
+  { src: "/images/weddings/wedding-06.jpg", alt: "A bride preparing for her ceremony" },
+  { src: "/images/weddings/wedding-07.jpg", alt: "A couple celebrating in traditional wedding attire" },
+  { src: "/images/weddings/wedding-08.jpg", alt: "Newlyweds sharing a joyful moment", tall: true },
+  { src: "/images/weddings/wedding-09.jpg", alt: "A candid black-and-white wedding portrait" },
+  { src: "/images/weddings/wedding-10.jpg", alt: "A father and child on the dance floor" },
+  { src: "/images/weddings/wedding-14.jpg", alt: "A bride holding a vivid red bouquet" },
+  { src: "/images/weddings/wedding-15.jpg", alt: "A newlywed portrait after the ceremony", tall: true },
+  { src: "/images/weddings/wedding-17.jpg", alt: "A young wedding attendant arriving for the celebration" },
+  { src: "/images/weddings/wedding-18.jpg", alt: "A bride with a soft pink bouquet" },
+  { src: "/images/weddings/wedding-19.jpg", alt: "A couple celebrating together" },
+  { src: "/images/weddings/wedding-20.jpg", alt: "A joyful black-and-white bridal portrait", tall: true },
+  { src: "/images/weddings/wedding-21.jpg", alt: "A bride holding her bouquet" },
+  { src: "/images/weddings/wedding-22.jpg", alt: "A guest capturing a wedding-day portrait" },
+];
+
+const stats = [
+  { number: "200+", label: "Weddings photographed" },
+  { number: "12", label: "Years of experience" },
+  { number: "4.9★", label: "Average couple rating" },
+  { number: "48hr", label: "Average response time" },
+];
 
 const packages = [
   {
@@ -78,11 +92,13 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#stories">Love stories</a>
           <a href="#experience">Experience</a>
+          <a href="#testimonials">Couples</a>
           <a href="#packages">Packages</a>
+          <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <a className="header-cta" href="sms:+13364572361">
+        <a className="header-cta" href="#contact">
           Check your date
         </a>
 
@@ -91,12 +107,15 @@ export default function Home() {
           <nav aria-label="Mobile navigation">
             <a href="#stories">Love stories</a>
             <a href="#experience">Experience</a>
+            <a href="#testimonials">Couples</a>
             <a href="#packages">Packages</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
           </nav>
         </details>
       </header>
 
+      {/* HERO — first impression, dual CTA */}
       <section className="hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">Columbia, Missouri · Wedding photography</p>
@@ -109,7 +128,7 @@ export default function Home() {
             celebration unmistakably yours.
           </p>
           <div className="hero-actions">
-            <a className="button button-dark" href="sms:+13364572361">
+            <a className="button button-dark" href="#contact">
               Tell us your date
             </a>
             <a className="text-link" href="#stories">
@@ -134,6 +153,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* STATS STRIP — instant social proof */}
+      <section className="stats-strip" aria-label="At a glance">
+        {stats.map((stat) => (
+          <div className="stat" key={stat.label}>
+            <strong>{stat.number}</strong>
+            <span>{stat.label}</span>
+          </div>
+        ))}
+      </section>
+
       <section className="manifesto" aria-label="Primus promise">
         <p>For the moments that move fast</p>
         <h2>
@@ -142,6 +171,7 @@ export default function Home() {
         </h2>
       </section>
 
+      {/* GALLERY — visual proof, lightbox keeps them engaged */}
       <section className="stories section" id="stories">
         <div className="section-heading">
           <div>
@@ -150,23 +180,15 @@ export default function Home() {
           </div>
           <p>
             A blend of candid storytelling and composed portraiture—from the
-            first quiet preparations to the final celebration.
+            first quiet preparations to the final celebration. Tap any photo
+            to view it full screen.
           </p>
         </div>
 
-        <div className="gallery">
-          {gallery.map(([number, alt], index) => (
-            <figure className={index % 5 === 0 ? "gallery-tall" : ""} key={number}>
-              <img
-                src={`/images/weddings/wedding-${number}.jpg`}
-                alt={alt}
-                loading="lazy"
-              />
-            </figure>
-          ))}
-        </div>
+        <Gallery images={galleryImages} />
       </section>
 
+      {/* EXPERIENCE — builds trust, answers "what's it like working with you" */}
       <section className="experience section" id="experience">
         <div className="experience-image">
           <img
@@ -217,6 +239,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS — social proof from real couples */}
+      <section className="testimonials-section section" id="testimonials">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Couples · 04</p>
+            <h2>Love in their words</h2>
+          </div>
+          <p>
+            We&apos;ve had the privilege of photographing hundreds of celebrations.
+            Here&apos;s what a few of them said.
+          </p>
+        </div>
+        <Testimonials />
+      </section>
+
       <section className="services-strip" aria-label="Available wedding services">
         <span>Engagement sessions</span>
         <span>Full-day coverage</span>
@@ -226,10 +263,11 @@ export default function Home() {
         <span>Photo booth</span>
       </section>
 
+      {/* PACKAGES — clear pricing, each card has inquiry CTA */}
       <section className="packages section" id="packages">
         <div className="section-heading packages-heading">
           <div>
-            <p className="eyebrow">Wedding collections · 04</p>
+            <p className="eyebrow">Wedding collections · 05</p>
             <h2>Choose your coverage</h2>
           </div>
           <p>
@@ -250,7 +288,7 @@ export default function Home() {
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
-              <a href="sms:+13364572361">Ask about {item.name}</a>
+              <a href={`#contact`}>Ask about {item.name}</a>
             </article>
           ))}
         </div>
@@ -266,10 +304,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* AVAILABILITY CHECKER — low-friction lead capture */}
+      <section className="availability-section section" id="availability">
+        <div className="availability-inner">
+          <AvailabilityChecker />
+        </div>
+      </section>
+
+      {/* FAQ — handles objections before the contact form */}
+      <section className="faq-section section" id="faq">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Good to know · 06</p>
+            <h2>Frequently asked</h2>
+          </div>
+          <p>
+            Still have questions? Text us anytime — we&apos;re happy to chat through
+            the details.
+          </p>
+        </div>
+        <FAQ />
+        <div className="faq-cta">
+          <p>Still wondering if we&apos;re the right fit?</p>
+          <a className="button button-dark" href="#contact">
+            Start a conversation →
+          </a>
+        </div>
+      </section>
+
+      {/* ABOUT — personal connection */}
       <section className="about section">
         <div className="about-quote">
-          <p className="eyebrow">Hello there · 05</p>
-          <blockquote>“We are in love with love.”</blockquote>
+          <p className="eyebrow">Hello there · 07</p>
+          <blockquote>&ldquo;We are in love with love.&rdquo;</blockquote>
         </div>
         <div className="about-copy">
           <p>
@@ -291,31 +358,50 @@ export default function Home() {
         />
       </section>
 
+      {/* CONTACT — full form, the primary conversion point */}
       <section className="contact section" id="contact">
         <div className="contact-copy">
-          <p className="eyebrow">Begin your story · 06</p>
-          <h2>Let’s make something timeless.</h2>
+          <p className="eyebrow">Begin your story · 08</p>
+          <h2>Let&apos;s make something timeless.</h2>
           <p>
-            Tell us your date, venue, and what you want to remember most. We’ll
-            talk through the right coverage for your celebration.
+            Tell us your date, venue, and what you want to remember most. We&apos;ll
+            talk through the right coverage for your celebration and get back
+            to you within 24 hours.
           </p>
         </div>
-        <div className="contact-actions">
-          <a className="contact-card" href="sms:+13364572361">
-            <span>Text or call</span>
-            <strong>(336) 457-2361</strong>
-            <em>Start an inquiry ↗</em>
-          </a>
-          <a
-            className="contact-card"
-            href="https://www.instagram.com/primus_events/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span>Instagram</span>
-            <strong>@primus_events</strong>
-            <em>See recent work ↗</em>
-          </a>
+        <div className="contact-form-wrapper">
+          <ContactForm />
+          <div className="contact-alt">
+            <p>Prefer to talk now?</p>
+            <a className="contact-card" href="sms:+133****2361">
+              <span>Text or call</span>
+              <strong>(336) 457-2361</strong>
+              <em>Start an inquiry ↗</em>
+            </a>
+            <a
+              className="contact-card"
+              href="https://www.instagram.com/primus_events/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Instagram</span>
+              <strong>@primus_events</strong>
+              <em>See recent work ↗</em>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWSLETTER — captures visitors not ready to inquire yet */}
+      <section className="newsletter-section" aria-label="Stay connected">
+        <div className="newsletter-inner">
+          <p className="eyebrow">Stay in the loop</p>
+          <h2>Real weddings, tips, and behind-the-scenes.</h2>
+          <p>
+            Join our list for occasional emails — real wedding stories, planning
+            tips, and early-access specials. No spam, ever.
+          </p>
+          <NewsletterCapture />
         </div>
       </section>
 
@@ -327,10 +413,13 @@ export default function Home() {
         <nav aria-label="Footer navigation">
           <a href="#stories">Love stories</a>
           <a href="#packages">Packages</a>
+          <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
         </nav>
         <p>© 2026 Primus Photography</p>
       </footer>
+
+      <StickyCTA />
     </main>
   );
 }
