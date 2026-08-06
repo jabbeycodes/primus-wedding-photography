@@ -1,6 +1,8 @@
 import { desc } from "drizzle-orm";
+import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { leads } from "@/db/schema";
+import { sendEmail, leadEmailHtml, NOTIFY_EMAIL, FROM_EMAIL } from "@/lib/email";
 
 function toRouteErrorMessage(error: unknown) {
   const message = error instanceof Error ? error.message : "Unexpected error";
@@ -69,6 +71,22 @@ export async function POST(request: Request) {
         note: payload.note?.trim() || null,
       })
       .returning();
+
+    // Send email notification (non-blocking)
+    const apiKey = (env as Record<string, string>).RESEND_API_KEY;
+    if (apiKey) {
+      sendEmail(apiKey, {
+        to: NOTIFY_EMAIL,
+        from: FROM_EMAIL,
+        subject: `New lead: ${source}${payload.weddingDate ? ` — date ${payload.weddingDate}` : ""}`,
+        html: leadEmailHtml({
+          email,
+          source,
+          weddingDate: lead.weddingDate,
+          note: lead.note,
+        }),
+      });
+    }
 
     return Response.json({ lead }, { status: 201 });
   } catch (error) {

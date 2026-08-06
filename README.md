@@ -53,6 +53,31 @@ npm run db:generate
 This creates SQL files in `drizzle/` that the platform applies to the D1 database
 on deployment.
 
+## Email Notifications
+
+Every inquiry and lead triggers an email notification to
+`primusphotographyinfo@gmail.com` via [Resend](https://resend.com).
+
+### Setup
+
+1. **Create a Resend account** at https://resend.com (free tier: 100 emails/day)
+2. **Get your API key** from Dashboard → API Keys → Create
+3. **Set it as a Cloudflare secret**:
+   ```bash
+   npx wrangler secret put RESEND_API_KEY
+   ```
+   Paste the key when prompted.
+
+Until the `RESEND_API_KEY` secret is set, form submissions still work — they
+store to D1 but skip the email. Once the secret is added, every submission
+also sends a styled HTML email notification.
+
+### Verify your sending domain
+
+To send from `inquiries@primusphotography.com`, add and verify the domain in
+Resend's dashboard (DNS records). Until then, use Resend's default
+`onboarding@resend.dev` sender — update `FROM_EMAIL` in `lib/email.ts`.
+
 ## SEO
 
 - **JSON-LD structured data** — LocalBusiness, WebSite, and FAQPage schemas in `layout.tsx`

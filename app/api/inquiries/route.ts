@@ -1,6 +1,8 @@
 import { desc } from "drizzle-orm";
+import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { inquiries } from "@/db/schema";
+import { sendEmail, inquiryEmailHtml, NOTIFY_EMAIL, FROM_EMAIL } from "@/lib/email";
 
 function toRouteErrorMessage(error: unknown) {
   const message = error instanceof Error ? error.message : "Unexpected error";
@@ -77,6 +79,25 @@ export async function POST(request: Request) {
         message,
       })
       .returning();
+
+    // Send email notification (non-blocking — email failure won't reject the inquiry)
+    const apiKey = (env as Record<string, string>).RESEND_API_KEY;
+    if (apiKey) {
+      sendEmail(apiKey, {
+        to: NOTIFY_EMAIL,
+        from: FROM_EMAIL,
+        subject: `New inquiry from ${name}${payload.weddingDate ? ` — wedding ${payload.weddingDate}` : ""}`,
+        html: inquiryEmailHtml({
+          name,
+          email,
+          phone: inquiry.phone,
+          weddingDate: inquiry.weddingDate,
+          venue: inquiry.venue,
+          package: inquiry.package,
+          message,
+        }),
+      });
+    }
 
     return Response.json({ inquiry }, { status: 201 });
   } catch (error) {
