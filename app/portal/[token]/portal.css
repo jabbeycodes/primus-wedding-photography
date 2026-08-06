@@ -1,0 +1,428 @@
+/* ─── Client Portal ─── */
+.portal-page {
+  background: var(--ivory);
+  min-height: 100vh;
+}
+
+.portal-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.portal-header {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+
+.portal-logo {
+  width: 140px;
+  mix-blend-mode: multiply;
+}
+
+.portal-welcome {
+  margin-bottom: 48px;
+}
+
+.portal-welcome h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 12px 0 16px;
+}
+
+.portal-welcome p {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.82;
+}
+
+/* Status tracker */
+.status-tracker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: 56px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.status-item {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+  opacity: 0.4;
+}
+
+.status-item:last-child {
+  border-right: none;
+}
+
+.status-item.done {
+  opacity: 1;
+  background: var(--paper);
+}
+
+.status-dot {
+  align-items: center;
+  background: var(--line);
+  border-radius: 50%;
+  color: var(--paper);
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.status-item.done .status-dot {
+  background: var(--green);
+}
+
+.status-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Intake form section */
+.portal-intake-section h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+
+.intake-section-intro {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0 0 40px;
+  opacity: 0.82;
+}
+
+.portal-intake-done {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.portal-intake-done h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0 0 16px;
+}
+
+.portal-intake-done p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 28px;
+  opacity: 0.82;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Intake form styles (shared with contact form) */
+.intake-form {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.intake-loading,
+.intake-error {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 60px 32px;
+  text-align: center;
+}
+
+.intake-error .button {
+  margin-top: 20px;
+}
+
+.intake-success {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 60px 32px;
+  text-align: center;
+}
+
+.intake-success-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 2rem;
+  font-style: italic;
+  margin: 0 0 16px;
+}
+
+.intake-success p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 28px;
+  opacity: 0.82;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Progress indicator */
+.intake-progress {
+  display: flex;
+  gap: 0;
+  margin-bottom: 40px;
+  overflow-x: auto;
+}
+
+.progress-step {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 0 16px 16px 0;
+  position: relative;
+}
+
+.progress-step::after {
+  content: "";
+  height: 2px;
+  background: var(--line);
+  flex: 1;
+  min-width: 20px;
+  margin-left: 10px;
+}
+
+.progress-step:last-child::after {
+  display: none;
+}
+
+.progress-dot {
+  align-items: center;
+  background: var(--line);
+  border-radius: 50%;
+  color: var(--paper);
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.progress-step.active .progress-dot {
+  background: var(--green);
+}
+
+.progress-step.done .progress-dot {
+  background: var(--green);
+}
+
+.progress-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+.progress-step.active .progress-label,
+.progress-step.done .progress-label {
+  opacity: 1;
+}
+
+/* Form steps */
+.intake-step h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+
+.intake-step-intro {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 32px;
+  opacity: 0.7;
+}
+
+.intake-step .form-field {
+  margin-bottom: 24px;
+}
+
+/* Override form-field for light background (portal vs green contact section) */
+.intake-form .form-field input,
+.intake-form .form-field textarea,
+.intake-form .form-field select {
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.intake-form .form-field input::placeholder,
+.intake-form .form-field textarea::placeholder {
+  color: rgba(20, 39, 29, 0.35);
+}
+
+.intake-form .form-field input:focus,
+.intake-form .form-field textarea:focus,
+.intake-form .form-field select:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+/* Checkbox grid */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.checkbox-item {
+  align-items: center;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.checkbox-item:hover {
+  border-color: var(--green);
+}
+
+.checkbox-item input {
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
+.checkbox-item span {
+  font-size: 0.88rem;
+}
+
+/* Review box */
+.intake-review {
+  background: #e8e3d8;
+  border-radius: 4px;
+  margin-top: 28px;
+  padding: 28px;
+}
+
+.intake-review-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.intake-review p:last-child {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.75;
+}
+
+/* Navigation */
+.intake-nav {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 36px;
+  padding-top: 28px;
+}
+
+.button-outline {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0.12em;
+  padding: 17px 24px;
+  text-transform: uppercase;
+  transition: background 180ms ease;
+}
+
+.button-outline:hover {
+  background: var(--line);
+}
+
+.button-outline:disabled {
+  opacity: 0.4;
+}
+
+.save-indicator {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-right: auto;
+  opacity: 0.5;
+}
+
+.intake-submit {
+  font-size: 0.78rem;
+}
+
+/* Portal contact */
+.portal-contact {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.portal-contact p {
+  font-size: 0.82rem;
+  color: var(--sage);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  .status-tracker {
+    flex-direction: column;
+  }
+
+  .status-item {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .status-item:last-child {
+    border-bottom: none;
+  }
+
+  .intake-nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .intake-nav .button {
+    width: 100%;
+  }
+
+  .save-indicator {
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+}

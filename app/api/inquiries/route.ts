@@ -1,8 +1,8 @@
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
-import { inquiries } from "@/db/schema";
-import { sendEmail, inquiryEmailHtml, NOTIFY_EMAIL, FROM_EMAIL } from "@/lib/email";
+import { inquiries, intakeData } from "@/db/schema";
+import { generateToken } from "@/lib/token";
 
 function toRouteErrorMessage(error: unknown) {
   const message = error instanceof Error ? error.message : "Unexpected error";
@@ -45,6 +45,7 @@ export async function POST(request: Request) {
       venue?: string;
       package?: string;
       message?: string;
+      referralSource?: string;
     };
 
     const name = payload.name?.trim() ?? "";
@@ -58,13 +59,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Basic email validation
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return Response.json(
         { error: "Please provide a valid email address" },
         { status: 400 }
       );
     }
+
+    const portalToken = generateToken();
 
     const db = getDb();
     const [inquiry] = await db
@@ -77,12 +79,17 @@ export async function POST(request: Request) {
         venue: payload.venue?.trim() || null,
         package: payload.package?.trim() || null,
         message,
+        referralSource: payload.referralSource?.trim() || null,
+        portalToken,
+        status: "intake-sent",
       })
       .returning();
 
-    // Send email notification (non-blocking — email failure won't reject the inquiry)
+    // Send inquiry notification email to photographer
     const apiKey = (env as Record<string, string>).RESEND_API_KEY;
     if (apiKey) {
+      // 1. Notification to photographer
+      const { sendEmail, inquiryEmailHtml, NOTIFY_EMAIL, FROM_EMAIL, intakeInvitationHtml } = await import("@/lib/email");
       sendEmail(apiKey, {
         to: NOTIFY_EMAIL,
         from: FROM_EMAIL,
@@ -97,9 +104,31 @@ export async function POST(request: Request) {
           message,
         }),
       });
+
+      // 2. Intake invitation email to the couple
+      const requestHeaders = request.headers;
+      const host =
+        requestHeaders.get("x-forwarded-host") ??
+        requestHeaders.get("host") ??
+        "primusphotography.com";
+      const protocol =
+        requestHeaders.get("x-forwarded-proto") ??
+        (host.includes("localhost") ? "http" : "https");
+      const portalUrl = `${protocol}://${host}/portal/${portalToken}`;
+
+      sendEmail(apiKey, {
+        to: email,
+        from: FROM_EMAIL,
+        subject: `Your Primus Photography intake form${payload.weddingDate ? ` — ${payload.weddingDate}` : ""}`,
+        html: intakeInvitationHtml({
+          name,
+          weddingDate: inquiry.weddingDate,
+          portalUrl,
+        }),
+      });
     }
 
-    return Response.json({ inquiry }, { status: 201 });
+    return Response.json({ inquiry, portalToken }, { status: 201 });
   } catch (error) {
     return Response.json(
       { error: toRouteErrorMessage(error) },

@@ -14,6 +14,7 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
     weddingDate: "",
     venue: "",
     message: "",
+    referralSource: "",
   });
 
   function update(key: string, value: string) {
@@ -44,7 +45,7 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
       }
 
       setStatus("success");
-      setForm({ name: "", email: "", phone: "", weddingDate: "", venue: "", message: "" });
+      setForm({ name: "", email: "", phone: "", weddingDate: "", venue: "", message: "", referralSource: "" });
     } catch {
       setErrorMsg("Network error — please try again or text us");
       setStatus("error");
@@ -133,6 +134,18 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
       {packageName ? (
         <input type="hidden" name="package" value={packageName} />
       ) : null}
+      <label className="form-field">
+        <span>How did you find us?</span>
+        <select value={form.referralSource} onChange={(e) => update("referralSource", e.target.value)}>
+          <option value="">Select…</option>
+          <option value="google">Google search</option>
+          <option value="instagram">Instagram</option>
+          <option value="facebook">Facebook</option>
+          <option value="referral">Friend or venue referral</option>
+          <option value="wedding-show">Wedding show / expo</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
       <label className="form-field">
         <span>Tell us about your day</span>
         <textarea

@@ -1,0 +1,230 @@
+/* ─── Admin Dashboard ─── */
+.admin-page {
+  background: var(--ivory);
+  min-height: 100vh;
+  padding: 0 0 80px;
+}
+
+.admin-header {
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  justify-content: space-between;
+  padding: 24px clamp(20px, 5vw, 80px);
+}
+
+.admin-header h1 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.admin-home-link {
+  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.admin-home-link:hover {
+  opacity: 1;
+}
+
+.admin-error {
+  background: #f8e8e8;
+  border: 1px solid #c75a5a;
+  border-radius: 4px;
+  margin: 32px clamp(20px, 5vw, 80px);
+  padding: 24px;
+}
+
+.admin-error-hint {
+  font-size: 0.82rem;
+  margin-top: 12px;
+  opacity: 0.75;
+}
+
+.admin-error-hint code {
+  background: rgba(0,0,0,0.06);
+  display: block;
+  font-family: monospace;
+  font-size: 0.78rem;
+  margin-top: 8px;
+  padding: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.admin-empty {
+  margin: 80px auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+.admin-empty p {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.3rem;
+  opacity: 0.6;
+}
+
+.admin-list {
+  padding: 32px clamp(20px, 5vw, 80px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Inquiry card */
+.admin-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.admin-card-summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 24px 28px;
+}
+
+.admin-card-summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-card-header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.admin-card-header strong {
+  font-size: 1.15rem;
+}
+
+.admin-date {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.admin-badge {
+  border-radius: 12px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  text-transform: uppercase;
+}
+
+.badge-new { background: #e8e3d8; color: var(--ink); }
+.badge-sent { background: #f0e6d2; color: #8a6d2b; }
+.badge-complete { background: #d4e8d8; color: #2a6b3d; }
+.badge-proposed { background: #d8e0f0; color: #2a4a8a; }
+.badge-booked { background: var(--green); color: var(--paper); }
+.badge-archived { background: #eee; color: #999; }
+
+.admin-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.82rem;
+  opacity: 0.6;
+}
+
+.admin-card-body {
+  border-top: 1px solid var(--line);
+  padding: 28px;
+}
+
+/* Intake details */
+.intake-details {
+  display: grid;
+  gap: 32px;
+}
+
+.intake-section h3 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.intake-section dl,
+.admin-inquiry dl {
+  display: grid;
+  gap: 0;
+}
+
+.intake-section dl > div,
+.admin-inquiry dl > div {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 12px 0;
+}
+
+.intake-section dt,
+.admin-inquiry dt {
+  font-size: 0.82rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.intake-section dd,
+.admin-inquiry dd {
+  font-size: 0.88rem;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.admin-inquiry {
+  margin-bottom: 32px;
+}
+
+.admin-inquiry h3 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.admin-no-intake {
+  opacity: 0.6;
+  padding: 20px 0;
+}
+
+.admin-portal-link code {
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+@media (max-width: 760px) {
+  .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .intake-section dl > div,
+  .admin-inquiry dl > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
