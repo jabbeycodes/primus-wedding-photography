@@ -10,9 +10,9 @@
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const NOTIFY_EMAIL = "primusphotographyinfo@gmail.com";
-// Until primusphotography.com is verified on Resend, use the sandbox sender.
-// Once verified, change to: inquiries@primusphotography.com
-const FROM_EMAIL = "onboarding@resend.dev";
+// Using shwme.app (verified on Resend) as the sender domain.
+// Once primusphotography.com is verified on Resend, switch to: inquiries@primusphotography.com
+const FROM_EMAIL = "noreply@shwme.app";
 
 type EmailPayload = {
   to: string;
