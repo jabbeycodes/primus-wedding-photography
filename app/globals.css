@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -23,11 +24,16 @@ body {
   background: var(--ivory);
   color: var(--ink);
   font-family: var(--font-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll from any overflow */
+  overflow-x: hidden;
 }
 
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -39,6 +45,7 @@ button,
 summary,
 a {
   -webkit-tap-highlight-color: transparent;
+  /* Ensure touch targets are at least 44px on mobile */
 }
 
 ::selection {
@@ -921,10 +928,13 @@ footer nav {
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: white;
   font-family: var(--font-sans), Arial, sans-serif;
-  font-size: 0.9rem;
+  font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
   padding: 16px 20px;
   width: auto;
   min-width: 200px;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .checker-form input::placeholder {
@@ -1049,9 +1059,12 @@ footer nav {
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: white;
   font-family: var(--font-sans), Arial, sans-serif;
-  font-size: 0.92rem;
+  font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
   padding: 15px 18px;
   resize: vertical;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .form-field input::placeholder,
@@ -1156,10 +1169,13 @@ footer nav {
   border: 1px solid var(--line);
   color: var(--ink);
   font-family: var(--font-sans), Arial, sans-serif;
-  font-size: 0.92rem;
+  font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
   padding: 15px 18px;
   width: 100%;
   max-width: 320px;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .newsletter-form input:focus {
@@ -1349,14 +1365,42 @@ footer nav {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
   .site-header {
-    min-height: 74px;
+    min-height: 64px;
+    padding: 0 16px;
   }
 
   .brand {
-    width: 128px;
+    width: 110px;
   }
 
+  .mobile-nav summary {
+    font-size: 0.68rem;
+    padding: 8px 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-nav nav {
+    min-width: 180px;
+    padding: 12px;
+    gap: 2px;
+  }
+
+  .mobile-nav a {
+    padding: 14px 10px;
+    font-size: 0.78rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hero — stack vertically, image first */
   .hero {
     display: flex;
     flex-direction: column-reverse;
@@ -1364,80 +1408,273 @@ footer nav {
   }
 
   .hero-visual {
-    min-height: 68vh;
+    min-height: 52vh;
+    min-height: 52dvh;
   }
 
   .hero-copy {
-    min-height: 660px;
-    padding-bottom: 50px;
-    padding-top: 70px;
+    min-height: auto;
+    padding: 50px 20px 60px;
   }
 
   h1 {
-    font-size: clamp(3.9rem, 19vw, 6rem);
+    font-size: clamp(2.8rem, 13vw, 4.5rem);
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+  }
+
+  h1 span {
+    margin-left: 0;
+    white-space: normal;
+  }
+
+  .hero-intro {
+    font-size: 1.15rem;
+    margin-top: 32px;
+  }
+
+  .hero-actions {
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .button {
+    padding: 16px 24px;
+    font-size: 0.72rem;
+    min-height: 48px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .button-dark {
+    width: 100%;
+  }
+
+  .hero-actions .text-link {
+    text-align: center;
+    width: 100%;
+    margin-top: 4px;
   }
 
   .hero-note {
-    margin-top: 60px;
-  }
-
-  .manifesto,
-  .section-heading,
-  .experience,
-  .about,
-  .contact {
-    grid-template-columns: 1fr;
-  }
-
-  .manifesto {
-    gap: 45px;
-  }
-
-  .section-heading {
-    align-items: start;
-    gap: 30px;
-    margin-bottom: 45px;
-  }
-
-  .gallery {
-    columns: 2 145px;
-    column-gap: 10px;
-  }
-
-  .gallery figure {
-    margin-bottom: 10px;
-  }
-
-  .experience-image {
-    min-height: 70vh;
-  }
-
-  .experience-copy {
+    margin-top: 48px;
     padding-top: 20px;
   }
 
+  .hero-note p {
+    font-size: 0.72rem;
+  }
+
+  .hero-badge {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .hero-badge strong {
+    font-size: 1.5rem;
+  }
+
+  /* Stats — 2x2 grid */
+  .stats-strip {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 12px;
+    padding: 40px 20px;
+  }
+
+  .stat strong {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .stat span {
+    font-size: 0.6rem;
+  }
+
+  /* Manifesto */
+  .manifesto {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 60px 20px;
+  }
+
+  .manifesto h2 {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+  }
+
+  /* Sections */
+  .section {
+    padding: 60px 20px;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .section-heading h2,
+  .experience h2,
+  .contact h2 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .section-heading > p,
+  .lead,
+  .contact-copy > p:last-child {
+    font-size: 1.1rem;
+  }
+
+  /* Gallery — 2 columns on mobile */
+  .gallery {
+    columns: 2 130px;
+    column-gap: 8px;
+  }
+
+  .gallery figure {
+    margin-bottom: 8px;
+  }
+
+  .gallery-zoom {
+    font-size: 1rem;
+  }
+
+  /* Lightbox — larger touch targets */
+  .lightbox-close {
+    right: 12px;
+    top: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+
+  .lightbox figcaption {
+    font-size: 0.7rem;
+    padding: 0 48px;
+  }
+
+  /* Experience */
+  .experience {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .experience-image {
+    min-height: 55vh;
+    min-height: 55dvh;
+  }
+
+  .experience-copy {
+    padding-top: 0;
+  }
+
+  .experience .lead {
+    margin: 28px 0 36px;
+  }
+
+  .steps li {
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .steps h3 {
+    font-size: 1.3rem;
+  }
+
+  .steps p {
+    font-size: 0.88rem;
+  }
+
+  /* Testimonials */
+  .testimonial-track {
+    min-height: auto;
+  }
+
+  .testimonial-quote {
+    font-size: 1.3rem;
+    margin: 0 0 24px;
+  }
+
+  .testimonial-dots {
+    margin-top: 28px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Services strip — horizontal scroll */
   .services-strip {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 18px 0;
+  }
+
+  .services-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-strip span {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .services-strip span::after {
+    margin: 0 22px;
+  }
+
+  /* Packages — stacked, featured no longer translated */
+  .package-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .package {
+    min-height: auto;
+    padding: 28px 24px;
+  }
+
+  .package.featured {
+    transform: none;
+  }
+
+  .price {
+    font-size: clamp(2.8rem, 10vw, 3.5rem);
+    margin: 28px 0 4px;
+  }
+
+  .package > a {
+    padding-top: 18px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 
   .package-footer {
     align-items: flex-start;
     flex-direction: column;
+    gap: 20px;
   }
 
-  .about > img {
-    grid-column: auto;
-    height: 520px;
-  }
-
-  .stats-strip {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 16px;
-  }
-
+  /* Availability checker */
   .checker-form {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
   }
 
   .checker-form input {
@@ -1445,42 +1682,213 @@ footer nav {
     width: 100%;
   }
 
-  .lightbox-close {
-    right: 16px;
-    top: 16px;
+  .checker-form .button {
+    width: 100%;
   }
 
-  .lightbox-prev {
-    left: 12px;
+  .checker-result {
+    padding: 20px;
+    font-size: 0.88rem;
   }
 
-  .lightbox-next {
-    right: 12px;
+  /* FAQ */
+  .faq-item summary {
+    font-size: 1.1rem;
+    padding: 22px 0;
+    min-height: 44px;
+    padding-right: 8px;
   }
 
-  .sticky-cta {
-    padding: 14px 20px;
+  .faq-toggle {
+    font-size: 1.5rem;
+    margin-left: 12px;
   }
 
-  .sticky-cta-text strong {
+  .faq-answer {
+    font-size: 0.88rem;
+    padding-bottom: 22px;
+  }
+
+  .faq-cta {
+    margin-top: 40px;
+  }
+
+  .faq-cta p {
+    font-size: 1.2rem;
+  }
+
+  /* About */
+  .about {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-quote blockquote {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+  }
+
+  .about-copy p {
     font-size: 1.1rem;
   }
 
-  .sticky-cta-sms {
-    padding: 10px 16px;
+  .about > img {
+    grid-column: auto;
+    height: 400px;
   }
 
+  /* Contact */
   .contact {
-    gap: 50px;
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
+  .contact-form-wrapper {
+    gap: 32px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-submit {
+    align-self: stretch;
+    width: 100%;
+    margin-top: 8px;
+    min-height: 52px;
+  }
+
+  .contact-card {
+    min-height: auto;
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  .contact-card strong {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    margin: 12px 0 18px;
+  }
+
+  /* Newsletter */
+  .newsletter-section {
+    padding: 50px 20px;
+  }
+
+  .newsletter-inner h2 {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+
+  .newsletter-inner > p {
+    font-size: 1.05rem;
+    margin: 0 0 28px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .newsletter-form input {
+    max-width: none;
+    width: 100%;
+  }
+
+  .newsletter-form .button {
+    width: 100%;
+  }
+
+  /* Footer */
   footer {
     align-items: start;
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 40px 20px;
+    padding-bottom: calc(80px + var(--safe-bottom));
   }
 
   footer nav {
     flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    width: 120px;
+  }
+
+  /* Sticky CTA — safe area aware, larger touch targets */
+  .sticky-cta {
+    padding: 14px 16px;
+    padding-bottom: calc(14px + var(--safe-bottom));
+  }
+
+  .sticky-cta-text span {
+    display: none;
+  }
+
+  .sticky-cta-text strong {
+    font-size: 1.05rem;
+  }
+
+  .sticky-cta-sms {
+    padding: 12px 18px;
+    font-size: 0.68rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ─── Extra small phones (iPhone SE, older devices) ─── */
+@media (max-width: 380px) {
+  h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-intro {
+    font-size: 1.05rem;
+  }
+
+  .hero-badge strong {
+    font-size: 1.3rem;
+  }
+
+  .stats-strip {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .stat strong {
+    font-size: 2.2rem;
+  }
+
+  .gallery {
+    columns: 1;
+  }
+
+  .gallery-zoom {
+    font-size: 0.9rem;
+  }
+
+  .section-heading h2,
+  .experience h2,
+  .contact h2 {
+    font-size: 1.7rem;
+  }
+
+  .manifesto h2 {
+    font-size: 1.6rem;
+  }
+
+  .about-quote blockquote {
+    font-size: 2rem;
+  }
+
+  .faq-item summary {
+    font-size: 1rem;
+  }
+
+  .sticky-cta-text strong {
+    font-size: 0.95rem;
   }
 }
 

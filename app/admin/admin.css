@@ -210,10 +210,41 @@
 }
 
 @media (max-width: 760px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 20px 16px;
+  }
+
+  .admin-header h1 {
+    font-size: 1.1rem;
+  }
+
+  .admin-list {
+    padding: 20px 16px;
+  }
+
+  .admin-card-summary {
+    padding: 18px 16px;
+  }
+
   .admin-card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .admin-card-header strong {
+    font-size: 1.05rem;
+  }
+
+  .admin-card-meta {
+    font-size: 0.76rem;
+  }
+
+  .admin-card-body {
+    padding: 20px 16px;
   }
 
   .intake-section dl > div,
@@ -222,9 +253,17 @@
     gap: 4px;
   }
 
-  .admin-header {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
+  .intake-section dt,
+  .admin-inquiry dt {
+    font-size: 0.76rem;
+  }
+
+  .intake-section dd,
+  .admin-inquiry dd {
+    font-size: 0.84rem;
+  }
+
+  .admin-error-hint code {
+    font-size: 0.72rem;
   }
 }

@@ -269,6 +269,10 @@
   background: white;
   border: 1px solid var(--line);
   color: var(--ink);
+  font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 2px;
 }
 
 .intake-form .form-field input::placeholder,
@@ -395,6 +399,31 @@
 
 /* Responsive */
 @media (max-width: 760px) {
+  .portal-container {
+    padding: 0 16px 60px;
+  }
+
+  .portal-header {
+    padding: 20px 0;
+    margin-bottom: 32px;
+  }
+
+  .portal-logo {
+    width: 110px;
+  }
+
+  .portal-welcome {
+    margin-bottom: 32px;
+  }
+
+  .portal-welcome h1 {
+    font-size: 2rem;
+  }
+
+  .portal-welcome p {
+    font-size: 1.05rem;
+  }
+
   .status-tracker {
     flex-direction: column;
   }
@@ -402,27 +431,127 @@
   .status-item {
     border-right: none;
     border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
   }
 
   .status-item:last-child {
     border-bottom: none;
   }
 
+  .status-text {
+    font-size: 0.68rem;
+  }
+
+  .portal-intake-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .intake-section-intro {
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+
+  .intake-form {
+    padding: 20px 16px;
+  }
+
+  .intake-progress {
+    margin-bottom: 28px;
+    gap: 0;
+  }
+
+  .progress-step {
+    padding: 0 8px 12px 0;
+  }
+
+  .progress-label {
+    font-size: 0.6rem;
+  }
+
+  .progress-step::after {
+    min-width: 12px;
+    margin-left: 6px;
+  }
+
+  .intake-step h2 {
+    font-size: 1.3rem;
+  }
+
+  .intake-step-intro {
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+  }
+
+  .intake-step .form-field {
+    margin-bottom: 20px;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .checkbox-item {
+    padding: 14px 12px;
+    min-height: 48px;
+  }
+
+  .checkbox-item span {
+    font-size: 0.85rem;
+  }
+
+  .intake-review {
+    padding: 20px 16px;
+  }
+
+  .intake-review-title {
+    font-size: 1.2rem;
+  }
+
   .intake-nav {
     flex-direction: column-reverse;
     align-items: stretch;
+    gap: 10px;
+    padding-top: 20px;
   }
 
   .intake-nav .button {
     width: 100%;
+    min-height: 48px;
   }
 
   .save-indicator {
     margin-right: 0;
     text-align: center;
+    order: 3;
   }
 
-  .checkbox-grid {
-    grid-template-columns: 1fr;
+  .portal-contact p {
+    font-size: 0.78rem;
+  }
+
+  .portal-success,
+  .portal-error,
+  .intake-success,
+  .intake-loading {
+    padding: 40px 20px;
+  }
+
+  .intake-success-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .portal-welcome h1 {
+    font-size: 1.6rem;
+  }
+
+  .progress-label {
+    display: none;
+  }
+
+  .intake-form {
+    padding: 16px 12px;
   }
 }
