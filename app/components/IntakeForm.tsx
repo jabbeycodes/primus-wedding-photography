@@ -499,9 +499,8 @@ export default function IntakeForm({ token }: { token: string }) {
               <span>Preferred payment method</span>
               <select value={data.paymentMethod} onChange={(e) => update("paymentMethod", e.target.value)}>
                 <option value="">Select…</option>
-                <option value="card">Credit/debit card</option>
-                <option value="ach">ACH bank transfer</option>
-                <option value="check">Check</option>
+                <option value="cashapp">Cash App ($primus10)</option>
+                <option value="zelle">Zelle (336) 457-2361 — Joshua Abbey</option>
               </select>
             </label>
             <label className="form-field">

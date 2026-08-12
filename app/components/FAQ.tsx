@@ -36,7 +36,7 @@ const faqs: FAQItem[] = [
   {
     question: "How does payment work?",
     answer:
-      "A 25% deposit secures your date, with the balance due 14 days before your wedding. Flexible payment plans are available — just ask.",
+      "A 25% deposit secures your date, with the balance due 14 days before your wedding. Flexible payment plans are available — just ask. We accept Cash App ($primus10) and Zelle (336) 457-2361 — Joshua Abbey.",
   },
 ];
 

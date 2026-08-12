@@ -14,6 +14,22 @@ function formatField(label: string, value: string | null | undefined): string | 
   if (label === "Add-ons") {
     try { return JSON.parse(value).join(", "); } catch { return value; }
   }
+  if (label === "Payment method") {
+    const labels: Record<string, string> = {
+      cashapp: "Cash App ($primus10)",
+      zelle: "Zelle (336) 457-2361 — Joshua Abbey",
+    };
+    return labels[value] || value;
+  }
+  if (label === "Payment plan") {
+    const labels: Record<string, string> = {
+      full: "Full payment upfront",
+      "2-part": "2-part (deposit + balance)",
+      "3-part": "3-part (deposit + 2 installments)",
+      custom: "Custom — let's discuss",
+    };
+    return labels[value] || value;
+  }
   return value;
 }
 
