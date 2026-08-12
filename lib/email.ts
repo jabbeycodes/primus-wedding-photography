@@ -10,9 +10,7 @@
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const NOTIFY_EMAIL = "primusphotographyinfo@gmail.com";
-// Using shwme.app (verified on Resend) as the sender domain.
-// Once primusphotography.com is verified on Resend, switch to: inquiries@primusphotography.com
-const FROM_EMAIL = "noreply@shwme.app";
+const FROM_EMAIL = "inquiries@primusphotography.com";
 
 type EmailPayload = {
   to: string;
