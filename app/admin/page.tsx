@@ -1,7 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
 import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { inquiries, intakeData } from "@/db/schema";
@@ -9,9 +8,10 @@ import "./admin.css";
 
 export const dynamic = "force-dynamic";
 
-// The inquiries dashboard is private. Access requires the admin cookie set
-// via the /api/admin/auth magic link (validated against the ADMIN_TOKEN
-// worker secret). Anything else gets a 404 so the page isn't discoverable.
+// The inquiries dashboard is private. Access requires the admin session
+// cookie set by posting the correct password to /api/admin/auth
+// (validated against the ADMIN_PASSWORD worker secret). Visitors without a
+// valid session see a password prompt instead of the dashboard.
 function safeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
   let diff = 0;
@@ -21,12 +21,52 @@ function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-async function requireAdmin(): Promise<void> {
-  const adminToken = (env as Record<string, string | undefined>).ADMIN_TOKEN;
-  const token = (await cookies()).get("admin_token")?.value ?? "";
-  if (!adminToken || !safeEqual(token, adminToken)) {
-    notFound();
-  }
+async function sessionValue(password: string): Promise<string> {
+  const data = new TextEncoder().encode(`primus-admin-session:${password}`);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+async function hasAdminSession(): Promise<boolean> {
+  const adminPassword = (env as Record<string, string | undefined>)
+    .ADMIN_PASSWORD;
+  if (!adminPassword) return false;
+  const session = (await cookies()).get("admin_session")?.value ?? "";
+  return safeEqual(session, await sessionValue(adminPassword));
+}
+
+function AdminLogin({ error }: { error?: string }) {
+  return (
+    <main className="admin-page admin-login-page">
+      <div className="admin-login-card">
+        <h1>Admin sign in</h1>
+        <p className="admin-login-hint">
+          Enter your admin password to view inquiries.
+        </p>
+        {error && (
+          <p className="admin-login-error">Incorrect password. Try again.</p>
+        )}
+        <form method="POST" action="/api/admin/auth">
+          <label className="admin-login-label">
+            Password
+            <input
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              required
+              autoFocus
+              className="admin-login-input"
+            />
+          </label>
+          <button type="submit" className="admin-login-button">
+            Sign in
+          </button>
+        </form>
+      </div>
+    </main>
+  );
 }
 
 type IntakeRow = typeof intakeData.$inferSelect;
@@ -150,8 +190,15 @@ function IntakeDetails({ intake, inquiry }: { intake: IntakeRow; inquiry: Inquir
   );
 }
 
-export default async function AdminPage() {
-  await requireAdmin();
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  if (!(await hasAdminSession())) {
+    const { error } = await searchParams;
+    return <AdminLogin error={error} />;
+  }
 
   let rows: InquiryRow[] = [];
   const intakes: Record<number, IntakeRow | null> = {};
