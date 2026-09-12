@@ -40,12 +40,12 @@ const faqs: FAQItem[] = [
   },
 ];
 
-export default function FAQ() {
+export default function FAQ({ items = faqs }: { items?: FAQItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <div className="faq-list">
-      {faqs.map((item, i) => (
+      {items.map((item, i) => (
         <details
           key={i}
           className="faq-item"

@@ -1903,3 +1903,130 @@ footer nav {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Subpages ─── */
+.page-hero {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(70px, 9vw, 130px) clamp(24px, 7vw, 110px) clamp(55px, 7vw, 90px);
+}
+
+.page-hero .eyebrow {
+  margin-bottom: 24px;
+}
+
+.page-hero h1 {
+  font-size: clamp(3.2rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  max-width: 16ch;
+}
+
+.page-hero h1 span {
+  margin-left: 0;
+  margin-top: 12px;
+  white-space: normal;
+}
+
+.page-hero .lead {
+  margin-top: 34px;
+  max-width: 620px;
+}
+
+.area-list {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  list-style: none;
+  margin: 0;
+  max-width: 900px;
+  padding: 0;
+}
+
+.area-list li {
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.5rem;
+  padding: 18px 0 18px 28px;
+  position: relative;
+}
+
+.area-list li::before {
+  color: var(--gold);
+  content: "◆";
+  font-size: 0.7rem;
+  left: 0;
+  position: absolute;
+  top: 28px;
+}
+
+.area-list li:nth-last-child(-n + 3) {
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-methods {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.mailto-fallback {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.mailto-fallback a {
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.cta-band {
+  background: var(--green);
+  color: var(--paper);
+  padding: clamp(70px, 9vw, 130px) clamp(24px, 7vw, 110px);
+  text-align: center;
+}
+
+.cta-band .eyebrow {
+  color: var(--sage);
+}
+
+.cta-band h2 {
+  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin: 0 0 20px;
+}
+
+.cta-band p {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.3rem;
+  margin: 0 auto 36px;
+  max-width: 560px;
+}
+
+.cta-band .hero-actions {
+  justify-content: center;
+  margin-top: 0;
+}
+
+.cta-band .button-dark {
+  background: var(--paper);
+  color: var(--green);
+}
+
+.cta-band .text-link {
+  color: var(--paper);
+}
+
+@media (max-width: 760px) {
+  .page-hero h1 {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+
+  .cta-band h2 {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+  }
+}
