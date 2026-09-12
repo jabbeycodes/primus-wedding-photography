@@ -1,10 +1,33 @@
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { inquiries, intakeData } from "@/db/schema";
 import "./admin.css";
 
 export const dynamic = "force-dynamic";
+
+// The inquiries dashboard is private. Access requires the admin cookie set
+// via the /api/admin/auth magic link (validated against the ADMIN_TOKEN
+// worker secret). Anything else gets a 404 so the page isn't discoverable.
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+async function requireAdmin(): Promise<void> {
+  const adminToken = (env as Record<string, string | undefined>).ADMIN_TOKEN;
+  const token = (await cookies()).get("admin_token")?.value ?? "";
+  if (!adminToken || !safeEqual(token, adminToken)) {
+    notFound();
+  }
+}
 
 type IntakeRow = typeof intakeData.$inferSelect;
 type InquiryRow = typeof inquiries.$inferSelect;
@@ -128,6 +151,8 @@ function IntakeDetails({ intake, inquiry }: { intake: IntakeRow; inquiry: Inquir
 }
 
 export default async function AdminPage() {
+  await requireAdmin();
+
   let rows: InquiryRow[] = [];
   const intakes: Record<number, IntakeRow | null> = {};
   let error = null;
@@ -167,6 +192,7 @@ export default async function AdminPage() {
       <header className="admin-header">
         <h1>Primus Photography — Inquiries Dashboard</h1>
         <Link href="/" className="admin-home-link">← Back to site</Link>
+        <a href="/api/admin/logout" className="admin-home-link">Sign out</a>
       </header>
 
       {error && (
