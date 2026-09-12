@@ -76,7 +76,7 @@ const faqJsonLd = {
       name: "How many photos do we receive?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every collection includes high-resolution, professionally retouched images. Golden package typically delivers 400–600 images; Silver 250–350; Bronze 150–250. All delivered via an online gallery within 4–6 weeks.",
+        text: "Every collection includes high-resolution, professionally retouched images. Golden package typically delivers 400–600 images; Silver 250–350; Bronze 150–250. Your full gallery is delivered via a private online gallery within one week of your wedding, with sneak peeks within 48 hours.",
       },
     },
     {
@@ -100,7 +100,7 @@ const faqJsonLd = {
       name: "How does payment work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "A 25% deposit secures your date, with the balance due 14 days before your wedding. Flexible payment plans are available — just ask. We accept Cash App ($primus10) and Zelle (336) 457-2361 — Joshua Abbey.",
+        text: "A 30% reservation payment at signing secures your date, with the remaining 70% due one day before your wedding. We accept major credit/debit cards, ACH bank transfer, or check — and flexible payment plans are available, just ask.",
       },
     },
   ],

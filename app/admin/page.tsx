@@ -53,8 +53,9 @@ function formatField(label: string, value: string | null | undefined): string | 
   }
   if (label === "Payment method") {
     const labels: Record<string, string> = {
-      cashapp: "Cash App ($primus10)",
-      zelle: "Zelle (336) 457-2361 — Joshua Abbey",
+      card: "Credit/Debit Card",
+      ach: "ACH / Bank Transfer",
+      check: "Check",
     };
     return labels[value] || value;
   }

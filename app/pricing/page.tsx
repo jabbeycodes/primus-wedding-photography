@@ -21,7 +21,7 @@ const pricingFaqs = [
   {
     question: "Is a deposit required?",
     answer:
-      "Yes — a deposit secures your wedding date, with the balance due before the wedding. Exact details are included in the pricing guide, and flexible payment plans are available. Just ask.",
+      "Yes — a 30% reservation payment at signing secures your wedding date, with the remaining 70% due one day before your wedding. Flexible payment plans are available — just ask.",
   },
   {
     question: "Do you travel for weddings?",
@@ -31,7 +31,7 @@ const pricingFaqs = [
   {
     question: "When do we receive our photos?",
     answer:
-      "Your carefully edited, high-resolution images are delivered in a private online gallery you can share with family and friends — typically within a few weeks of your wedding day.",
+      "Your carefully edited, high-resolution images are delivered in a private online gallery you can share with family and friends — within one week of your wedding day.",
   },
   {
     question: "Can we add an engagement session?",
@@ -195,7 +195,7 @@ export default function PricingPage() {
                 <h3>Relive it beautifully</h3>
                 <p>
                   After your wedding, your edited, high-resolution photographs
-                  arrive in a private online gallery within a few weeks.
+                  arrive in a private online gallery within one week.
                 </p>
               </div>
             </li>
