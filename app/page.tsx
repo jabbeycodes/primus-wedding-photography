@@ -14,21 +14,21 @@ export const metadata: Metadata = {
 };
 
 const galleryImages = [
-  { src: "/images/weddings/wedding-03.jpg", alt: "A newlywed couple beneath the trees", tall: true },
-  { src: "/images/weddings/wedding-04.jpg", alt: "A quiet getting-ready moment by the window" },
-  { src: "/images/weddings/wedding-06.jpg", alt: "A bride preparing for her ceremony" },
-  { src: "/images/weddings/wedding-07.jpg", alt: "A couple celebrating in traditional wedding attire" },
-  { src: "/images/weddings/wedding-08.jpg", alt: "Newlyweds sharing a joyful moment", tall: true },
-  { src: "/images/weddings/wedding-09.jpg", alt: "A candid black-and-white wedding portrait" },
-  { src: "/images/weddings/wedding-10.jpg", alt: "A father and child on the dance floor" },
-  { src: "/images/weddings/wedding-14.jpg", alt: "A bride holding a vivid red bouquet" },
-  { src: "/images/weddings/wedding-15.jpg", alt: "A newlywed portrait after the ceremony", tall: true },
-  { src: "/images/weddings/wedding-17.jpg", alt: "A young wedding attendant arriving for the celebration" },
-  { src: "/images/weddings/wedding-18.jpg", alt: "A bride with a soft pink bouquet" },
-  { src: "/images/weddings/wedding-19.jpg", alt: "A couple celebrating together" },
-  { src: "/images/weddings/wedding-20.jpg", alt: "A joyful black-and-white bridal portrait", tall: true },
-  { src: "/images/weddings/wedding-21.jpg", alt: "A bride holding her bouquet" },
-  { src: "/images/weddings/wedding-22.jpg", alt: "A guest capturing a wedding-day portrait" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-03.jpg", alt: "A newlywed couple beneath the trees", tall: true },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-04.jpg", alt: "A quiet getting-ready moment by the window" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-06.jpg", alt: "A bride preparing for her ceremony" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-07.jpg", alt: "A couple celebrating in traditional wedding attire" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-08.jpg", alt: "Newlyweds sharing a joyful moment", tall: true },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-09.jpg", alt: "A candid black-and-white wedding portrait" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-10.jpg", alt: "A father and child on the dance floor" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-14.jpg", alt: "A bride holding a vivid red bouquet" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-15.jpg", alt: "A newlywed portrait after the ceremony", tall: true },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-17.jpg", alt: "A young wedding attendant arriving for the celebration" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-18.jpg", alt: "A bride with a soft pink bouquet" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-19.jpg", alt: "A couple celebrating together" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-20.jpg", alt: "A joyful black-and-white bridal portrait", tall: true },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-21.jpg", alt: "A bride holding her bouquet" },
+  { src: "/images/weddings/columbia-mo-wedding-photographer-22.jpg", alt: "A guest capturing a wedding-day portrait" },
 ];
 
 const stats = [
@@ -120,8 +120,8 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">Columbia, Missouri · Wedding photography</p>
           <h1>
-            Love stories,
-            <span>beautifully told.</span>
+            Columbia, Missouri wedding photographer
+            <span>Love stories, beautifully told.</span>
           </h1>
           <p className="hero-intro">
             Honest moments, artful portraits, and every detail that makes your
@@ -143,7 +143,7 @@ export default function Home() {
 
         <div className="hero-visual">
           <img
-            src="/images/weddings/wedding-15.jpg"
+            src="/images/weddings/columbia-mo-wedding-photographer-15.jpg"
             alt="A newlywed couple photographed by Primus Photography"
           />
           <div className="hero-badge" aria-label="Creating beautiful memories">
@@ -176,7 +176,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Selected work · 02</p>
-            <h2>Moments captured</h2>
+            <h2>Real weddings captured across Columbia, Missouri</h2>
           </div>
           <p>
             A blend of candid storytelling and composed portraiture—from the
@@ -192,14 +192,14 @@ export default function Home() {
       <section className="experience section" id="experience">
         <div className="experience-image">
           <img
-            src="/images/weddings/wedding-14.jpg"
+            src="/images/weddings/columbia-mo-wedding-photographer-14.jpg"
             alt="A bride holding a red bouquet while her partner waits behind her"
             loading="lazy"
           />
         </div>
         <div className="experience-copy">
           <p className="eyebrow">The Primus experience · 03</p>
-          <h2>Present with you. Never in the way.</h2>
+          <h2>Your Columbia wedding photographer: present with you, never in the way.</h2>
           <p className="lead">
             Great wedding photography begins with trust. We take time to learn
             your story and your vision, then photograph the day as it naturally
@@ -244,7 +244,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Couples · 04</p>
-            <h2>Love in their words</h2>
+            <h2>What Columbia couples say about us</h2>
           </div>
           <p>
             We&apos;ve had the privilege of photographing hundreds of celebrations.
@@ -268,7 +268,7 @@ export default function Home() {
         <div className="section-heading packages-heading">
           <div>
             <p className="eyebrow">Wedding collections · 05</p>
-            <h2>Choose your coverage</h2>
+            <h2>Wedding photography packages & pricing</h2>
           </div>
           <p>
             Every collection includes a complimentary pre-wedding photo
@@ -316,7 +316,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Good to know · 06</p>
-            <h2>Frequently asked</h2>
+            <h2>Wedding photography questions, answered</h2>
           </div>
           <p>
             Still have questions? Text us anytime — we&apos;re happy to chat through
@@ -352,7 +352,7 @@ export default function Home() {
           </p>
         </div>
         <img
-          src="/images/weddings/wedding-19.jpg"
+          src="/images/weddings/columbia-mo-wedding-photographer-19.jpg"
           alt="A newlywed couple smiling together"
           loading="lazy"
         />
@@ -362,7 +362,7 @@ export default function Home() {
       <section className="contact section" id="contact">
         <div className="contact-copy">
           <p className="eyebrow">Begin your story · 08</p>
-          <h2>Let&apos;s make something timeless.</h2>
+          <h2>Book your Columbia, Missouri wedding photographer.</h2>
           <p>
             Tell us your date, venue, and what you want to remember most. We&apos;ll
             talk through the right coverage for your celebration and get back
@@ -396,7 +396,7 @@ export default function Home() {
       <section className="newsletter-section" aria-label="Stay connected">
         <div className="newsletter-inner">
           <p className="eyebrow">Stay in the loop</p>
-          <h2>Real weddings, tips, and behind-the-scenes.</h2>
+          <h2>Columbia wedding stories, tips, and behind-the-scenes.</h2>
           <p>
             Join our list for occasional emails — real wedding stories, planning
             tips, and early-access specials. No spam, ever.

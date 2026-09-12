@@ -17,11 +17,11 @@ const sans = Manrope({
 
 const businessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "ProfessionalService",
   name: "Primus Photography",
   description:
     "Wedding photography in Columbia, Missouri, with engagement sessions, full-day coverage, portraits, albums, videography, drone coverage, and photo booth options.",
-  image: "/og.jpg",
+  image: "https://primusphotography.com/og.jpg",
   url: "https://primusphotography.com",
   telephone: "+1-336-457-2361",
   address: {
@@ -32,7 +32,10 @@ const businessJsonLd = {
   },
   areaServed: "Columbia, Missouri and surrounding areas",
   priceRange: "$1,800 - $3,600",
-  sameAs: ["https://www.instagram.com/primus_inspirations/"],
+  sameAs: [
+    "https://www.instagram.com/primus_inspirations/",
+    "https://www.facebook.com/primusinspirations",
+  ],
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -119,19 +122,22 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Primus Photography | Columbia, Missouri Wedding Photographer",
     description:
       "Artful wedding photography, engagement sessions, and full-day celebration coverage in Columbia, Missouri and beyond. Check your date today.",
+    alternates: {
+      canonical: "https://primusphotography.com/",
+    },
     icons: {
       icon: "/images/primus-logo.jpg",
       shortcut: "/images/primus-logo.jpg",
     },
     openGraph: {
-      title: "Primus Photography | Love Stories, Beautifully Told",
+      title: "Primus Photography | Columbia, Missouri Wedding Photographer",
       description: "Wedding photography in Columbia, Missouri and beyond. Check your date today.",
       images: [`${origin}/og.jpg`],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Primus Photography | Love Stories, Beautifully Told",
+      title: "Primus Photography | Columbia, Missouri Wedding Photographer",
       description: "Wedding photography in Columbia, Missouri and beyond.",
       images: [`${origin}/og.jpg`],
     },
