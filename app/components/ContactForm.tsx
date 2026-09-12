@@ -15,6 +15,7 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
     venue: "",
     message: "",
     referralSource: "",
+    companyWebsite: "", // honeypot — must stay empty
   });
 
   function update(key: string, value: string) {
@@ -45,7 +46,7 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
       }
 
       setStatus("success");
-      setForm({ name: "", email: "", phone: "", weddingDate: "", venue: "", message: "", referralSource: "" });
+      setForm({ name: "", email: "", phone: "", weddingDate: "", venue: "", message: "", referralSource: "", companyWebsite: "" });
     } catch {
       setErrorMsg("Network error — please try again or text us");
       setStatus("error");
@@ -155,6 +156,17 @@ export default function ContactForm({ packageName }: { packageName?: string }) {
           placeholder="What matters most to you? How did you meet? Any questions for us?"
         />
       </label>
+      {/* Honeypot: invisible to humans, bots fill it in */}
+      <input
+        type="text"
+        name="company_website"
+        value={form.companyWebsite}
+        onChange={(e) => update("companyWebsite", e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+      />
       {status === "error" ? (
         <p className="form-error">{errorMsg}</p>
       ) : null}

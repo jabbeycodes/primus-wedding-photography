@@ -1,8 +1,9 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, gte, sql } from "drizzle-orm";
 import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { inquiries, intakeData } from "@/db/schema";
 import { generateToken } from "@/lib/token";
+import { hasAdminSession } from "@/lib/admin-auth";
 
 function toRouteErrorMessage(error: unknown) {
   const message = error instanceof Error ? error.message : "Unexpected error";
@@ -18,6 +19,10 @@ function toRouteErrorMessage(error: unknown) {
 }
 
 export async function GET() {
+  // Private: client PII must not be publicly listable.
+  if (!(await hasAdminSession())) {
+    return Response.json({ error: "Not found" }, { status: 404 });
+  }
   try {
     const db = getDb();
     const rows = await db
@@ -46,7 +51,13 @@ export async function POST(request: Request) {
       package?: string;
       message?: string;
       referralSource?: string;
+      companyWebsite?: string; // honeypot — bots fill it, humans never see it
     };
+
+    // Honeypot: silently accept bot submissions without storing or notifying.
+    if (payload.companyWebsite?.trim()) {
+      return Response.json({ inquiry: null }, { status: 201 });
+    }
 
     const name = payload.name?.trim() ?? "";
     const email = payload.email?.trim() ?? "";
@@ -66,9 +77,27 @@ export async function POST(request: Request) {
       );
     }
 
+    const db = getDb();
+
+    // Throttle: max 5 inquiries per email address per hour.
+    const [{ count }] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(inquiries)
+      .where(
+        and(
+          eq(inquiries.email, email),
+          gte(inquiries.createdAt, sql`datetime('now', '-1 hour')`)
+        )
+      );
+    if (count >= 5) {
+      return Response.json(
+        { error: "Too many inquiries from this email — please try again later" },
+        { status: 429 }
+      );
+    }
+
     const portalToken = generateToken();
 
-    const db = getDb();
     const [inquiry] = await db
       .insert(inquiries)
       .values({

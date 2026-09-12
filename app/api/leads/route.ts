@@ -1,8 +1,9 @@
-import { desc } from "drizzle-orm";
+import { and, desc, gte, sql, eq } from "drizzle-orm";
 import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { leads } from "@/db/schema";
 import { sendEmail, leadEmailHtml, NOTIFY_EMAIL, FROM_EMAIL } from "@/lib/email";
+import { hasAdminSession } from "@/lib/admin-auth";
 
 function toRouteErrorMessage(error: unknown) {
   const message = error instanceof Error ? error.message : "Unexpected error";
@@ -18,6 +19,10 @@ function toRouteErrorMessage(error: unknown) {
 }
 
 export async function GET() {
+  // Private: lead emails must not be publicly listable.
+  if (!(await hasAdminSession())) {
+    return Response.json({ error: "Not found" }, { status: 404 });
+  }
   try {
     const db = getDb();
     const rows = await db
@@ -62,6 +67,24 @@ export async function POST(request: Request) {
     }
 
     const db = getDb();
+
+    // Throttle: max 5 leads per email address per hour.
+    const [{ count }] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(leads)
+      .where(
+        and(
+          eq(leads.email, email),
+          gte(leads.createdAt, sql`datetime('now', '-1 hour')`)
+        )
+      );
+    if (count >= 5) {
+      return Response.json(
+        { error: "Too many requests — please try again later" },
+        { status: 429 }
+      );
+    }
+
     const [lead] = await db
       .insert(leads)
       .values({

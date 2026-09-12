@@ -4,7 +4,10 @@
 // The cookie holds a SHA-256 derived value, never the password itself.
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { env } from "cloudflare:workers";
+import {
+  adminSessionValue,
+  getAdminPassword,
+} from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -17,22 +20,13 @@ function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-export async function sessionValue(password: string): Promise<string> {
-  const data = new TextEncoder().encode(`primus-admin-session:${password}`);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
 export async function POST(req: Request) {
-  const adminPassword = (env as Record<string, string | undefined>)
-    .ADMIN_PASSWORD;
+  const adminPassword = getAdminPassword();
   const form = await req.formData();
   const password = String(form.get("password") ?? "");
   if (adminPassword && safeEqual(password, adminPassword)) {
     const store = await cookies();
-    store.set("admin_session", await sessionValue(adminPassword), {
+    store.set("admin_session", await adminSessionValue(adminPassword), {
       httpOnly: true,
       secure: true,
       sameSite: "lax",

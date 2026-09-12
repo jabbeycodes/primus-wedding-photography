@@ -1,41 +1,15 @@
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { env } from "cloudflare:workers";
 import { getDb } from "@/db";
 import { inquiries, intakeData } from "@/db/schema";
+import { hasAdminSession } from "@/lib/admin-auth";
 import "./admin.css";
 
 export const dynamic = "force-dynamic";
 
-// The inquiries dashboard is private. Access requires the admin session
-// cookie set by posting the correct password to /api/admin/auth
-// (validated against the ADMIN_PASSWORD worker secret). Visitors without a
-// valid session see a password prompt instead of the dashboard.
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) {
-    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return diff === 0;
-}
-
-async function sessionValue(password: string): Promise<string> {
-  const data = new TextEncoder().encode(`primus-admin-session:${password}`);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-async function hasAdminSession(): Promise<boolean> {
-  const adminPassword = (env as Record<string, string | undefined>)
-    .ADMIN_PASSWORD;
-  if (!adminPassword) return false;
-  const session = (await cookies()).get("admin_session")?.value ?? "";
-  return safeEqual(session, await sessionValue(adminPassword));
-}
+// The inquiries dashboard is private. Visitors without a valid admin session
+// (set by posting the password to /api/admin/auth) see a password prompt
+// instead of the dashboard.
 
 function AdminLogin({ error }: { error?: string }) {
   return (
